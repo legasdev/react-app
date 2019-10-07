@@ -6,12 +6,12 @@ import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import PreviewImg from './PreviewImg/PreviewImg';
 
-export default function Profile() { 
+export default function Profile({ postsData }) { 
     return (
         <div>
             <PreviewImg imgSrc="https://fog-wlprs.pw/images/700/DSC100798794.jpg" />
             <ProfileInfo />
-            <MyPosts />
+            <MyPosts postsData={postsData} />
         </div>
     );
 }

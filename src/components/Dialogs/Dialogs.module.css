@@ -3,25 +3,3 @@
     grid-template-columns: 260px auto;
     grid-column-gap: 30px;
 }
-
-.dialogs_items {
-    padding: 0 10px;
-}
-
-.dialog {
-    padding: 4px 0;
-    color: #2b2b2b;
-}
-
-.dialog.active {
-  color: #8b7e7e;
-}
-
-/* Блок сообщений */
-.messages {
-
-}
-
-.msg {
-    margin: 3px 0;
-}
