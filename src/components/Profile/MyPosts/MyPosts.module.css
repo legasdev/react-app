@@ -1,3 +1,17 @@
-.posts {
+.add_post {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
 
+.textarea {
+    width: 50%;
+    height: 100px;
+    resize: none;
+}
+
+.button {
+    width: 50.5%;
+    height: 25px;
+    margin: 10px 0 25px;
 }
