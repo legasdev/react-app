@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import './App.css';
 
@@ -13,7 +13,6 @@ import Settings from './components/Settings/Settings';
 
 function App({ state }) {
   return (
-    <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <Aside />
@@ -42,7 +41,6 @@ function App({ state }) {
           />
         </main>
       </div>
-    </BrowserRouter>
   );
 }
 
