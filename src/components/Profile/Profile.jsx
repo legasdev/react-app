@@ -6,12 +6,16 @@ import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import PreviewImg from './PreviewImg/PreviewImg';
 
-export default function Profile({ postsData }) { 
+export default function Profile(props) { 
     return (
         <div>
             <PreviewImg imgSrc="https://fog-wlprs.pw/images/700/DSC100798794.jpg" />
             <ProfileInfo />
-            <MyPosts postsData={postsData} />
+            <MyPosts 
+                profilePage={props.profilePage}
+                addPost={props.addPost}
+                updateNewPostText={props.updateNewPostText}
+            />
         </div>
     );
 }

@@ -1,3 +1,4 @@
+import { renderTree } from "../render";
 
 const state = {
     profilePage: {
@@ -6,6 +7,7 @@ const state = {
             {key: 2, post: 'Text post 2', likes: 17},
             {key: 3, post: 'Text post 3', likes: 57},
         ],
+        newPostText: ''
     },
     dialogsPage: {
         dialogsData: [
@@ -25,5 +27,23 @@ const state = {
         ]
     }
 };
+
+export const addPost = (postMsg) => {
+    const newPost = {
+        key: 5,
+        post: postMsg,
+        likes: 0
+    }
+
+    state.profilePage.postsData.push(newPost);
+
+    renderTree(state);
+}
+
+export const updateNewPostText = (newText) => {
+    state.profilePage.newPostText = newText;
+
+    renderTree(state);
+}
 
 export default state;

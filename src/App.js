@@ -11,7 +11,7 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 
-function App({ state }) {
+function App(props) {
   return (
       <div className="app-wrapper">
         <Header />
@@ -19,13 +19,20 @@ function App({ state }) {
         <main className="main">
           <Route 
             path='/profile' 
-            render={ () => <Profile postsData={state.profilePage.postsData} /> } 
+            render={ () => 
+              <Profile 
+                profilePage={props.state.profilePage}
+                addPost={props.addPost} 
+                updateNewPostText={props.updateNewPostText}
+            /> } 
           />
           <Route 
             path='/dialogs' 
-            render={ () => <Dialogs 
-                              dialogsData={state.dialogsPage.dialogsData} 
-                              msgs={state.dialogsPage.msgs} /> } 
+            render={ () => 
+              <Dialogs 
+                dialogsData={props.state.dialogsPage.dialogsData} 
+                msgs={props.state.dialogsPage.msgs}
+            /> } 
           />
           <Route 
             path='/news' 

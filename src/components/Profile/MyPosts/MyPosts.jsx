@@ -4,13 +4,20 @@ import s from './MyPosts.module.css';
 
 import Post from './Post/Post';
 
-export default function MyPosts({ postsData }) {
+export default function MyPosts(props) {
 
-    const newPostElement = React.createRef();
+    const 
+        newPostElement = React.createRef();
 
-    const addPost = () => {
+    const onAddPostUi = () => {
         const text = newPostElement.current.value;
-        alert(text);
+        props.addPost(text);
+        props.updateNewPostText(''); 
+    }
+    
+    const onPostChange = () => {
+        const text = newPostElement.current.value;
+        props.updateNewPostText(text); 
     }
 
     return (
@@ -20,16 +27,18 @@ export default function MyPosts({ postsData }) {
                 <textarea 
                     className={s.textarea} 
                     name="addNewPost" 
-                    ref={newPostElement}>
-                </textarea>
+                    ref={ newPostElement } 
+                    value={ props.profilePage.newPostText }
+                    onChange={ onPostChange }
+                />
                 <button 
                     className={s.button} 
-                    onClick={ addPost }>
+                    onClick={ onAddPostUi }>
                         Добавить пост
                 </button>
             </div>
             <div className={s.post_wrapper}>
-                {DrawDataPost(postsData)}
+                { DrawDataPost(props.profilePage.postsData) }
             </div>
         </section>
     );
