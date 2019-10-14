@@ -6,18 +6,21 @@ import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 
 // Сама страница
-const Dialogs = ({ dialogsData, msgs }) => {
+const Dialogs = (props) => {
 
     const 
-        drawDataUser = dialogsData.map( ({ key, userName }) => <DialogItem id={key} userName={userName} />),
-        drawDataMsg = msgs.map( ({ key, msg }) => <Message id={key} msg={msg} />);
+        drawDataUser = props.dialogsData.map( ({ key, userName }) => <DialogItem id={key} userName={userName} />),
+        drawDataMsg = props.msgs.map( ({ key, msg }) => <Message id={key} msg={msg} />);
 
     const
         newMsgElement = React.createRef(),
         addMsg = () => {
-            alert(newMsgElement.current.value);
-        };
-
+            props.addMsgCreator();
+        },
+        onChangeText = () => {
+            const text = newMsgElement.current.value;
+            props.updateMsgTextCreator(text);
+        }
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
@@ -30,7 +33,9 @@ const Dialogs = ({ dialogsData, msgs }) => {
                     <textarea 
                         className={s.textarea} 
                         name="addNewPost" 
-                        ref={newMsgElement}>
+                        ref={ newMsgElement }
+                        value={ props.textArea }
+                        onChange={ onChangeText }>
                     </textarea>
                     <button 
                         className={s.button} 
