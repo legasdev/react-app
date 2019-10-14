@@ -11,9 +11,7 @@ export default function Profile(props) {
         <div>
             <PreviewImg imgSrc="https://fog-wlprs.pw/images/700/DSC100798794.jpg" />
             <ProfileInfo />
-            <MyPostsContainer 
-                store={props.store}
-            />
+            <MyPostsContainer />
         </div>
     );
 }

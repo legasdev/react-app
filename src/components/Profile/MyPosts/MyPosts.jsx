@@ -44,5 +44,5 @@ export default function MyPosts(props) {
 
 // Обработка данных для постов
 function DrawDataPost(array) {
-    return array.map( ({ key, post, likes }) => <Post id={key} msg={post} likes={likes} /> );
+    return array.map( ({ key, post, likes }) => <Post id={key} key={key} msg={post} likes={likes} /> );
 }

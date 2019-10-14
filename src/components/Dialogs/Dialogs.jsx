@@ -9,8 +9,8 @@ import DialogItem from './DialogItem/DialogItem';
 const Dialogs = (props) => {
 
     const 
-        drawDataUser = props.dialogsData.map( ({ key, userName }) => <DialogItem id={key} userName={userName} />),
-        drawDataMsg = props.msgs.map( ({ key, msg }) => <Message id={key} msg={msg} />);
+        drawDataUser = props.dialogsData.map( ({ key, userName }) => <DialogItem id={key} key={key} userName={userName} />),
+        drawDataMsg = props.msgs.map( ({ key, msg }) => <Message id={key} msg={msg} key={key} />);
 
     const
         newMsgElement = React.createRef(),

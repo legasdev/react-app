@@ -20,17 +20,11 @@ function App(props) {
         <main className="main">
           <Route 
             path='/profile' 
-            render={ () => 
-              <Profile 
-                store={props.store}
-            /> } 
+            render={ () => <Profile /> } 
           />
           <Route 
             path='/dialogs' 
-            render={ () => 
-              <DialogsContainer
-                store={props.store}
-            /> } 
+            render={ () => <DialogsContainer /> } 
           />
           <Route 
             path='/news' 
