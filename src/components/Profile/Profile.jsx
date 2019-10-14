@@ -2,19 +2,17 @@ import React from 'react';
 
 // import s from './Profile.module.css';
 
-import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import PreviewImg from './PreviewImg/PreviewImg';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 export default function Profile(props) { 
     return (
         <div>
             <PreviewImg imgSrc="https://fog-wlprs.pw/images/700/DSC100798794.jpg" />
             <ProfileInfo />
-            <MyPosts 
-                profilePage={props.profilePage}
-                addPost={props.addPost}
-                updateNewPostText={props.updateNewPostText}
+            <MyPostsContainer 
+                store={props.store}
             />
         </div>
     );

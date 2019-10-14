@@ -10,14 +10,12 @@ export default function MyPosts(props) {
         newPostElement = React.createRef();
 
     const onAddPostUi = () => {
-        const text = newPostElement.current.value;
-        props.addPost(text);
-        props.updateNewPostText(''); 
+        props.addPost();
     }
     
     const onPostChange = () => {
-        const text = newPostElement.current.value;
-        props.updateNewPostText(text); 
+        const text = newPostElement.current.value; 
+        props.updateNewPostText(text);
     }
 
     return (
@@ -28,7 +26,7 @@ export default function MyPosts(props) {
                     className={s.textarea} 
                     name="addNewPost" 
                     ref={ newPostElement } 
-                    value={ props.profilePage.newPostText }
+                    value={ props.newPostText }
                     onChange={ onPostChange }
                 />
                 <button 
@@ -38,7 +36,7 @@ export default function MyPosts(props) {
                 </button>
             </div>
             <div className={s.post_wrapper}>
-                { DrawDataPost(props.profilePage.postsData) }
+                { DrawDataPost(props.postsData) }
             </div>
         </section>
     );
