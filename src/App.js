@@ -10,6 +10,7 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import UsersContainer from './components/Users/UsersContainer';
 
 function App(props) {
 
@@ -20,21 +21,19 @@ function App(props) {
         <main className="main">
           <Route 
             path='/profile' 
-            render={ () => 
-              <Profile 
-                store={props.store}
-            /> } 
+            render={ () => <Profile /> } 
           />
           <Route 
             path='/dialogs' 
-            render={ () => 
-              <DialogsContainer
-                store={props.store}
-            /> } 
+            render={ () => <DialogsContainer /> } 
           />
           <Route 
             path='/news' 
             component={ News } 
+          />
+          <Route
+            path='/users'
+            render={ () => <UsersContainer /> }
           />
           <Route 
             path='/music' 

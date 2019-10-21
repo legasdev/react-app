@@ -30,8 +30,7 @@ const profileReducer = (state = initialState, action) => {
             return addPost(state);
 
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
+            return {...state, newPostText: action.newText};
         
         default: return state;
     }
@@ -44,15 +43,11 @@ export default profileReducer;
 // Any private functions
 
 function addPost(state) {
-    const newPost = {
-        key: 5,
-        post: state.newPostText,
-        likes: 0
+    return {
+        ...state,
+        postsData: [...state.postsData, { key: 5, post: state.newPostText, likes: 0 }],
+        newPostText: ''
     };
-    state.postsData.push(newPost);
-    state.newPostText = '';
-
-    return state;
 }
 
 

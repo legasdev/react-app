@@ -8,11 +8,13 @@ import { createStore, combineReducers } from "redux";
 
 import profileReducer from './profile-reducer';
 import dialogsReducer from './dialogs-reducer';
+import usersReducer from "./users-reducer";
 
 // Комбинирование редьюсеров
 const reducers = combineReducers({
     profilePage: profileReducer,
-    dialogsPage: dialogsReducer
+    dialogsPage: dialogsReducer,
+    usersPage: usersReducer,
 });
 
 // Создание Store

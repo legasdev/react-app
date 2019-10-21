@@ -34,16 +34,14 @@ const dialogsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case UPDATE_MSG_TEXTAREA:
-            state.textArea = action.newText;
-            return state;
+        case UPDATE_MSG_TEXTAREA: 
+            return {...state, textArea: action.newText};
 
         case ADD_NEW_MSG:
-                return addNewMsg(state);
+            return addNewMsg(state);
 
         default: return state;
     }
-
 }
 
 export default dialogsReducer;
@@ -52,13 +50,11 @@ export default dialogsReducer;
 // Any functions
 
 function addNewMsg(state) {
-    state.msgs.push({
-        key: 9,
-        msg: state.textArea
-    });
-    state.textArea = '';
-
-    return state;
+    return {
+        ...state,
+        msgs: [...state.msgs, { key: 9, msg: state.textArea }],
+        textArea: ''
+    };
 }
 
 
