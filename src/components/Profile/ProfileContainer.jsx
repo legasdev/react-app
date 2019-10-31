@@ -10,7 +10,6 @@ import { setUserProfile } from './../../redux/profile-reducer';
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        debugger;
 
         const userId = this.props.match.params.userId || 2;
 

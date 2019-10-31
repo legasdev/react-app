@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Axios from 'axios';
 
 import { 
     follow, 
@@ -14,6 +13,7 @@ import {
 // import UsersAPIComponent from './UsersAPIComponent';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
+import { usersAPI } from '../../api/api';
 
 /**
  * 
@@ -28,11 +28,10 @@ class UsersContainer extends React.Component {
 
         this.props.toggleIsFetching(true);
 
-        Axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then( res => { 
-                this.props.setUsers([...res.data.items]); 
-                this.props.setTotalUsersCount(res.data.totalCount);
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then( data => { 
+                this.props.setUsers([...data.items]); 
+                this.props.setTotalUsersCount(data.totalCount);
                 this.props.toggleIsFetching(false);
             });
     }
@@ -47,10 +46,9 @@ class UsersContainer extends React.Component {
         this.props.setCurrentPage(item);
         this.props.toggleIsFetching(true);
 
-        Axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${item}&count=${this.props.pageSize}`)
-            .then( res => { 
-                this.props.setUsers([...res.data.items]);
+        usersAPI.getUsers(item, this.props.pageSize)
+            .then( data => { 
+                this.props.setUsers([...data.items]);
                 this.props.toggleIsFetching(false);
             });
     }
@@ -59,13 +57,8 @@ class UsersContainer extends React.Component {
         return <>
             { this.props.isFetching ? <Preloader /> : null}
             <Users 
-                users={this.props.users}
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
+                { ...this.props }
                 onPageChanged={this.onPageChanged}
-                follow={this.props.follow}
-                unFollow={this.props.unFollow}
             />
         </>
         
