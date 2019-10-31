@@ -3,9 +3,9 @@ import { Route } from 'react-router-dom';
 
 import './App.css';
 
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import Aside from './components/Aside/Aside';
-import Profile from './components/Profile/Profile';
+import ProfileContainer from './components/Profile/ProfileContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
@@ -16,12 +16,12 @@ function App(props) {
 
   return (
       <div className="app-wrapper">
-        <Header />
+        <HeaderContainer />
         <Aside />
         <main className="main">
           <Route 
-            path='/profile' 
-            render={ () => <Profile /> } 
+            path='/profile/:userId?' 
+            render={ () => <ProfileContainer /> } 
           />
           <Route 
             path='/dialogs' 
