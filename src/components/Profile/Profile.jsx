@@ -6,12 +6,14 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import PreviewImg from './PreviewImg/PreviewImg';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
-export default function Profile(props) { 
+const Profile = props => { 
     return (
         <div>
             <PreviewImg imgSrc="https://fog-wlprs.pw/images/700/DSC100798794.jpg" />
-            <ProfileInfo />
+            <ProfileInfo profile={props.profile} />
             <MyPostsContainer />
         </div>
     );
 }
+
+export default Profile;

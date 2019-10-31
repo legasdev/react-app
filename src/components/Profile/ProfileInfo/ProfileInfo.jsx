@@ -1,14 +1,18 @@
 import React from 'react';
 
 import s from './ProfileInfo.module.css';
+import Preloader from '../../common/Preloader/Preloader';
 
-const ProfileInfo = () => {
+const ProfileInfo = props => {
+
+    if (!props.profile) return <Preloader />
+
     return (
         <section className={s.preview_info}>
             <h2>Информация</h2>
-            <img className={s.img_avatar} src="https://dmitrykireev.com/wp-content/uploads/2017/02/avatar-klienta-dmitrykireev.com_.jpg" alt="" />
+            <img className={s.img_avatar} src={props.profile.photos.small} alt="" />
             <div className={s.description}>
-                Здесь инфа
+                {props.profile.aboutMe}
             </div>
         </section>        
     );

@@ -79,9 +79,9 @@ function unFollowForUser(state, userId) {
 
 // Actions
 
-export const setUsersAC = users => ({type: SET_USERS, users});
-export const followAC = userId => ({type: FOLLOW_USER, userId});
-export const unFollowAC = userId => ({type: UNFOLLOW_USER, userId});
-export const setCurrentPageAC = currentPage => ({type: SET_CURRENT_PAGE, currentPage});
-export const setTotalUsersCountAC = totalUsersCount => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
-export const toggleIsFetchingAC = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const setUsers = users => ({type: SET_USERS, users});
+export const follow = userId => ({type: FOLLOW_USER, userId});
+export const unFollow = userId => ({type: UNFOLLOW_USER, userId});
+export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPage});
+export const setTotalUsersCount = totalUsersCount => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
+export const toggleIsFetching = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching});
