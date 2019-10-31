@@ -9,22 +9,32 @@ const instance = Axios.create({
     }
 });
 
+
 export const usersAPI = {
 
+    // Получение списка пользователей
     async getUsers(currentPage = 1, pageSize = 10) {
         const res = await instance.get(`users?page=${currentPage}&count=${pageSize}`);
         return res.data;
-    }
+    },
+
+    async follow(id = 0) {
+        return await instance.post(`follow/${id}`);
+    },
+
+    async unFollow(id = 0) {
+        return await instance.delete(`follow/${id}`);
+    },
 
 }
 
 // Эквивалент await
-const _usersAPI2 = {
+// const _usersAPI2 = {
 
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance
-            .get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(res => res.data);
-    }
+//     getUsers(currentPage = 1, pageSize = 10) {
+//         return instance
+//             .get(`users?page=${currentPage}&count=${pageSize}`)
+//             .then(res => res.data);
+//     }
 
-}
+// }

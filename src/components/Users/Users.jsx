@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import s from './users.module.css';
 
 import userImg from '../../assets/img/s1200.webp';
-import Axios from 'axios';
+import { usersAPI } from '../../api/api';
 
 const Users = props => {
 
@@ -13,30 +13,24 @@ const Users = props => {
     for (let i = 1; i <= pagesCounter; i++) pages.push(i);
 
     const onClickFollow = id => {
-        Axios
-            .post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, 
-            {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '76b87330-10ae-40e6-ad96-9fd11832839d'
-                }
-            })
+        props.toggleFollowingProgress(true, id);
+
+        usersAPI
+            .follow(id)
             .then(res => {
+                props.toggleFollowingProgress(false, id);
                 if (!res.data.resultCode)
                     props.follow(id);
             });
     }
 
     const onClickUnFollow = id => {
-        Axios
-            .delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, 
-            {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '76b87330-10ae-40e6-ad96-9fd11832839d'
-                }
-            })
+        props.toggleFollowingProgress(true, id);
+
+        usersAPI
+            .unFollow(id)
             .then(res => {
+                props.toggleFollowingProgress(false, id);
                 if (!res.data.resultCode)
                     props.unFollow(id);
             });
@@ -66,8 +60,14 @@ const Users = props => {
                         </div>
                         <div>
                             { item.followed 
-                                ? <button onClick={ () => { onClickUnFollow(item.id) } }>Unfollow</button>
-                                : <button onClick={ () => { onClickFollow(item.id) } }>Follow</button>
+                                ? <button 
+                                    onClick={ () => { onClickUnFollow(item.id) } }
+                                    disabled={ props.followingInProgress.some( id => id === item.id ) } 
+                                  >Unfollow</button>
+                                : <button 
+                                    onClick={ () => { onClickFollow(item.id) } }
+                                    disabled={ props.followingInProgress.some( id => id === item.id ) } 
+                                  >Follow</button>
                             }
                         </div>
                     </span>
