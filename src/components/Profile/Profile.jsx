@@ -6,7 +6,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import PreviewImg from './PreviewImg/PreviewImg';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
-const Profile = props => { 
+const Profile = props => {
     return (
         <div>
             <PreviewImg imgSrc="https://fog-wlprs.pw/images/700/DSC100798794.jpg" />
