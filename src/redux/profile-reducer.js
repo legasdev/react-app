@@ -62,7 +62,7 @@ function addPost(state) {
 
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const updatePostTextActionCreator = text => ({type: UPDATE_NEW_POST_TEXT, newText: text});
-export const setUserProfileSuccess = profile => ({type: SET_USER_PROFILE, profile});
+export const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
 
 
 // Thunks
@@ -72,10 +72,10 @@ export const setUserProfileSuccess = profile => ({type: SET_USER_PROFILE, profil
  * 
  * @param {number} id ID запрашиваемого пользователя 
  */
-export const setUserProfile = id => dispatch => {
+export const getUserProfile = id => dispatch => {
     userDataAPI
         .getUserInfo(id)
         .then( res => {
-            dispatch(setUserProfileSuccess(res.data));
+            dispatch(setUserProfile(res.data));
         });
 }
