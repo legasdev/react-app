@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import { 
     follow, 
@@ -10,6 +11,7 @@ import {
 
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
+import { withAuthRedirect } from '../../hoc/WithAuthRedirect';
 
 /**
  * 
@@ -62,8 +64,11 @@ const mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
     }
 }
 
-export default connect(mapStateToProps, { follow, unFollow, setCurrentPage, getUsers })(UsersContainer);
+export default compose(
+    connect(mapStateToProps, { follow, unFollow, setCurrentPage, getUsers }),
+    withAuthRedirect,
+)(UsersContainer);
