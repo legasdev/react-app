@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 /**
  * 
  * Редьюсер для страницы человека
@@ -24,6 +26,7 @@ const initialState = {
     isFetching: true,
     followingInProgress: [],
 };
+
 
 // Reducer
 
@@ -63,6 +66,7 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
+
 // Any private functions
 
 function followForUser(state, userId) {
@@ -87,12 +91,68 @@ function unFollowForUser(state, userId) {
     };
 }
 
+
 // Actions
 
 export const setUsers = users => ({type: SET_USERS, users});
-export const follow = userId => ({type: FOLLOW_USER, userId});
-export const unFollow = userId => ({type: UNFOLLOW_USER, userId});
+export const followSuccess = userId => ({type: FOLLOW_USER, userId});
+export const unFollowSuccess = userId => ({type: UNFOLLOW_USER, userId});
 export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalUsersCount = totalUsersCount => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 export const toggleIsFetching = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLOWING_PROGRESS, isFetching, userId});
+
+
+// Thunks
+
+/**
+ * @description Получение пользователей с сервера 
+ * 
+ * @param {number} currentPage Номер страницы
+ * @param {number} pageSize Количество записей на странице
+ */
+export const getUsers = (currentPage = 1, pageSize = 10) => dispatch => {
+    dispatch(toggleIsFetching(true));
+
+    usersAPI
+        .getUsers(currentPage, pageSize)
+        .then( data => { 
+            dispatch(setUsers([...data.items])); 
+            dispatch(setTotalUsersCount(data.totalCount));
+            dispatch(toggleIsFetching(false));
+        });
+}
+
+/**
+ * @description Оформляет подписку на пользователя
+ * 
+ * @param {number} id ID пользователя
+ */
+export const follow = id => dispatch => {
+    dispatch(toggleFollowingProgress(true, id));
+
+    usersAPI
+        .follow(id)
+        .then(res => {
+            dispatch(toggleFollowingProgress(false, id));
+            if (!res.data.resultCode)
+                dispatch(followSuccess(id));
+        });
+}
+
+/**
+ * @description Снимает подписку с пользователя
+ * 
+ * @param {number} id ID пользователя
+ */
+export const unFollow = id => dispatch => {
+    dispatch(toggleFollowingProgress(true, id));
+    
+    usersAPI
+        .unFollow(id)
+        .then(res => {
+            dispatch(toggleFollowingProgress(false, id));
+            if (!res.data.resultCode)
+                dispatch(followSuccess(id));
+        });
+}

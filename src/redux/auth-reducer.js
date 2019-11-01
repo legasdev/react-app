@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 /**
  * 
  * Редьюсер для страницы человека
@@ -43,3 +45,17 @@ export default authReducer;
 // Actions
 
 export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}});
+
+
+// Thunks
+
+export const checkAuthUser = () => dispatch => {
+    authAPI
+        .getAuthUserData()
+        .then(res => {
+            if (!res.data.resultCode) {
+                const {id, email, login} = res.data.data;
+                dispatch(setAuthUserData(id, email, login));
+            }
+        });
+}

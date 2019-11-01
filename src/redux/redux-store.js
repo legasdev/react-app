@@ -3,13 +3,14 @@
  * Основной файл управления Store
  * 
  */
-
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunkMiddleware from 'redux-thunk';
 
 import profileReducer from './profile-reducer';
 import dialogsReducer from './dialogs-reducer';
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
+
 
 // Комбинирование редьюсеров
 const reducers = combineReducers({
@@ -20,6 +21,6 @@ const reducers = combineReducers({
 });
 
 // Создание Store
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export default store;
