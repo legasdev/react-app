@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { applyMiddleware } from 'C:/Users/Администратор/AppData/Local/Microsoft/TypeScript/3.6/node_modules/redux';
 
 
 const instance = Axios.create({
@@ -9,7 +10,7 @@ const instance = Axios.create({
     }
 });
 
-
+// Действия с пользователями
 export const usersAPI = {
 
     // Получение списка пользователей
@@ -18,14 +19,37 @@ export const usersAPI = {
         return res.data;
     },
 
+    // Подписка на пользователя
     async follow(id = 0) {
         return await instance.post(`follow/${id}`);
     },
 
+    // Отписка от пользователя
     async unFollow(id = 0) {
         return await instance.delete(`follow/${id}`);
     },
 
+}
+
+// Действия с аккаунтом
+export const authAPI = {
+
+    // Информация об авторизации
+    async getAuthUserData() {
+        return await instance.get(`auth/me`);
+    },
+
+}
+
+// Информация о пользователе
+// открытые личные данные, посты, сообщения...
+export const userDataAPI = {
+
+    // Возвращает открытые личные данные о пользователе
+    async getUserInfo(userId) {
+        return await instance.get(`profile/${userId}`);
+    }
+    
 }
 
 // Эквивалент await

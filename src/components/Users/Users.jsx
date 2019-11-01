@@ -4,37 +4,12 @@ import { NavLink } from 'react-router-dom';
 import s from './users.module.css';
 
 import userImg from '../../assets/img/s1200.webp';
-import { usersAPI } from '../../api/api';
 
 const Users = props => {
 
     const pagesCounter = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCounter; i++) pages.push(i);
-
-    const onClickFollow = id => {
-        props.toggleFollowingProgress(true, id);
-
-        usersAPI
-            .follow(id)
-            .then(res => {
-                props.toggleFollowingProgress(false, id);
-                if (!res.data.resultCode)
-                    props.follow(id);
-            });
-    }
-
-    const onClickUnFollow = id => {
-        props.toggleFollowingProgress(true, id);
-
-        usersAPI
-            .unFollow(id)
-            .then(res => {
-                props.toggleFollowingProgress(false, id);
-                if (!res.data.resultCode)
-                    props.unFollow(id);
-            });
-    }
 
     return (
         <div>
@@ -61,11 +36,11 @@ const Users = props => {
                         <div>
                             { item.followed 
                                 ? <button 
-                                    onClick={ () => { onClickUnFollow(item.id) } }
+                                    onClick={ () => { props.unFollow(item.id); } }
                                     disabled={ props.followingInProgress.some( id => id === item.id ) } 
                                   >Unfollow</button>
                                 : <button 
-                                    onClick={ () => { onClickFollow(item.id) } }
+                                    onClick={ () => { props.follow(item.id); } }
                                     disabled={ props.followingInProgress.some( id => id === item.id ) } 
                                   >Follow</button>
                             }

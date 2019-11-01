@@ -1,3 +1,5 @@
+import { userDataAPI } from "../api/api";
+
 /**
  * 
  * Редьюсер для страницы профиля
@@ -60,4 +62,20 @@ function addPost(state) {
 
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const updatePostTextActionCreator = text => ({type: UPDATE_NEW_POST_TEXT, newText: text});
-export const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
+export const setUserProfileSuccess = profile => ({type: SET_USER_PROFILE, profile});
+
+
+// Thunks
+
+/**
+ * @description Получить открытую информацию о пользователе
+ * 
+ * @param {number} id ID запрашиваемого пользователя 
+ */
+export const setUserProfile = id => dispatch => {
+    userDataAPI
+        .getUserInfo(id)
+        .then( res => {
+            dispatch(setUserProfileSuccess(res.data));
+        });
+}
