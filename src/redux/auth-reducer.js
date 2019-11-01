@@ -49,7 +49,7 @@ export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, 
 
 // Thunks
 
-export const checkAuthUser = () => dispatch => {
+export const getAuthUserData = () => dispatch => {
     authAPI
         .getAuthUserData()
         .then(res => {
