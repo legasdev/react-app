@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import { applyMiddleware } from 'C:/Users/Администратор/AppData/Local/Microsoft/TypeScript/3.6/node_modules/redux';
 
 
 const instance = Axios.create({
