@@ -42,11 +42,21 @@ export const authAPI = {
 
 // Информация о пользователе
 // открытые личные данные, посты, сообщения...
-export const userDataAPI = {
+export const profileAPI = {
 
     // Возвращает открытые личные данные о пользователе
-    async getUserInfo(userId) {
+    async getProfile(userId) {
         return await instance.get(`profile/${userId}`);
+    },
+
+    // Возврат статуса пользователя
+    async getUserStatus(userId) {
+        return await instance.get(`profile/status/${userId}`);
+    },
+
+    // Обновление статуса пользователя
+    async updateUserStatus(status) {
+        return await instance.put(`profile/status`, { status });
     }
     
 }
