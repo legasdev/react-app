@@ -17,7 +17,7 @@ const LoginForm = props => {
                     placeholder={'Пароль'} 
                     name={'password'}
                     component={'input'}
-                />  
+                /> 
             </div>
             <div>
                 <Field 

@@ -1,40 +1,38 @@
 import React from 'react';
+import { reduxForm, Field } from 'redux-form';
 
 import s from './MyPosts.module.css';
 
 import Post from './Post/Post';
 
-export default function MyPosts(props) {
+const PostMsgForm = props => {
+    const { handleSubmit } = props;
+    return (
+        <form className={s.add_post} onSubmit={handleSubmit}>
+            <Field 
+                className={s.textarea}
+                component={'textarea'}
+                name={'addNewPost'}
+            />
+            <button className={s.button}>
+                Добавить пост
+            </button>
+        </form>
+    );
+}
 
-    const 
-        newPostElement = React.createRef();
+const PostMsgFormRedux = reduxForm({form: 'postMsgForm'})(PostMsgForm);
 
-    const onAddPostUi = () => {
-        props.addPost();
-    }
-    
-    const onPostChange = () => {
-        const text = newPostElement.current.value; 
-        props.updateNewPostText(text);
-    }
+const MyPosts = props => {
+
+    const onSubmit = values => {
+        props.addPost(values.addNewPost);
+    };
 
     return (
         <section className={s.posts}>
             <h2>Посты</h2>
-            <div className={s.add_post}>
-                <textarea 
-                    className={s.textarea} 
-                    name="addNewPost" 
-                    ref={ newPostElement } 
-                    value={ props.newPostText }
-                    onChange={ onPostChange }
-                />
-                <button 
-                    className={s.button} 
-                    onClick={ onAddPostUi }>
-                        Добавить пост
-                </button>
-            </div>
+            <PostMsgFormRedux onSubmit={onSubmit} />
             <div className={s.post_wrapper}>
                 { DrawDataPost(props.postsData) }
             </div>
@@ -46,3 +44,5 @@ export default function MyPosts(props) {
 function DrawDataPost(array) {
     return array.map( ({ key, post, likes }) => <Post id={key} key={key} msg={post} likes={likes} /> );
 }
+
+export default MyPosts;
