@@ -13,9 +13,9 @@ const ProfileInfo = props => {
         <section className={s.preview_info}>
             <h2>Информация</h2>
             <img className={s.img_avatar} src={props.profile.photos.small} alt="" />
-            
-            <ProfileStatus
-                status={props.profile.aboutMe}    
+            <ProfileStatus 
+                status={props.status}
+                updateUserStatus={props.updateUserStatus}
             />
         </section>        
     );

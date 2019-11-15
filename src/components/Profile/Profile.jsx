@@ -10,7 +10,11 @@ const Profile = props => {
     return (
         <div>
             <PreviewImg imgSrc="https://fog-wlprs.pw/images/700/DSC100798794.jpg" />
-            <ProfileInfo profile={props.profile} />
+            <ProfileInfo 
+                profile={props.profile}
+                status={props.status}
+                updateUserStatus={props.updateUserStatus}
+            />
             <MyPostsContainer />
         </div>
     );
