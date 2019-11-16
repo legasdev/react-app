@@ -6,6 +6,11 @@ import s from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 
+import { requiredField, maxLength } from '../../utils/validators';
+import { Textarea } from '../common/FormsControls/FormsControls';
+
+const maxLength10 = maxLength(10);
+
 // Форма диалога
 const DialogForm = props => {
     const { handleSubmit } = props;
@@ -15,8 +20,10 @@ const DialogForm = props => {
             className={s.add_msg}>
             <Field 
                 className={s.textarea}
-                component={'textarea'}
-                name={'newMsgBody'}/>
+                component={Textarea}
+                name={'newMsgBody'}
+                validate={ [requiredField, maxLength10] }
+            />
             
             <button className={s.button}>
                     Отправить
