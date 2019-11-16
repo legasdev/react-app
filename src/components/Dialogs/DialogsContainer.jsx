@@ -1,4 +1,4 @@
-import { addMsgCreator, updateMsgTextCreator } from '../../redux/dialogs-reducer';
+import { addMsgCreator } from '../../redux/dialogs-reducer';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -10,18 +10,14 @@ const mapStateToProps = (state) => {
     return {
         dialogsData: state.dialogsPage.dialogsData,
         msgs: state.dialogsPage.msgs,
-        textArea: state.dialogsPage.textArea,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addMsgCreator: () => {
-            dispatch(addMsgCreator());
+        addMsgCreator: (msg) => {
+            dispatch(addMsgCreator(msg));
         },
-        updateMsgTextCreator: (text) => {
-            dispatch(updateMsgTextCreator(text));
-        }
     };
 };
 
