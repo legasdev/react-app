@@ -1,6 +1,14 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 
+import { FieldComponent } from './../common/FormsControls/FormsControls';
+import { requiredField, maxLength } from './../../utils/validators/validators';
+
+const 
+    maxLength20 = maxLength(20),
+    errorText = requiredField('need more symbols'),
+    Input = FieldComponent('input');
+
 const LoginForm = props => {
     const { handleSubmit } = props;
     return (
@@ -9,14 +17,16 @@ const LoginForm = props => {
                 <Field 
                     placeholder={'Логин'}
                     name={'login'}
-                    component={'input'}
+                    component={Input}
+                    validate={[ errorText, maxLength20 ]}
                 />
             </div>
             <div>
                 <Field 
                     placeholder={'Пароль'} 
+                    component={Input}
                     name={'password'}
-                    component={'input'}
+                    validate={[ errorText, maxLength20 ]}
                 /> 
             </div>
             <div>

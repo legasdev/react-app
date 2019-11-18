@@ -5,13 +5,22 @@ import s from './MyPosts.module.css';
 
 import Post from './Post/Post';
 
+import { FieldComponent } from './../../common/FormsControls/FormsControls';
+import { requiredField, maxLength } from './../../../utils/validators/validators';
+
+const
+    required = requiredField('Давай больше букв!'),
+    maxLength40 = maxLength(40),
+    Textarea = FieldComponent('textarea');
+
 const PostMsgForm = props => {
     const { handleSubmit } = props;
     return (
         <form className={s.add_post} onSubmit={handleSubmit}>
             <Field 
                 className={s.textarea}
-                component={'textarea'}
+                component={Textarea}
+                validate={[required, maxLength40]}
                 name={'addNewPost'}
             />
             <button className={s.button}>
