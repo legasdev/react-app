@@ -28,8 +28,7 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return { 
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             };
 
         default: return state;
@@ -44,18 +43,41 @@ export default authReducer;
 
 // Actions
 
-export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}});
+export const setAuthUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}});
 
 
 // Thunks
 
+// Проверка на логин
 export const getAuthUserData = () => dispatch => {
     authAPI
         .getAuthUserData()
         .then(res => {
             if (!res.data.resultCode) {
                 const {id, email, login} = res.data.data;
-                dispatch(setAuthUserData(id, email, login));
+                dispatch(setAuthUserData(id, email, login, true));
+            }
+        });
+}
+
+// Попытка логина
+export const login = (email, password, rememberMe) => dispatch => {
+    authAPI
+        .login(email, password, rememberMe)
+        .then(res => {
+            if (!res.data.resultCode) {
+                dispatch(getAuthUserData());
+            }
+        });
+}
+
+// Попытка разлогирования
+export const logout = () => dispatch => {
+    authAPI
+        .logout()
+        .then(res => {
+            if (!res.data.resultCode) {
+                dispatch(setAuthUserData(null, null, null, false));
             }
         });
 }

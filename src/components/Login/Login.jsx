@@ -1,8 +1,13 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+
+import { login } from '../../redux/auth-reducer';
 
 import { FieldComponent } from './../common/FormsControls/FormsControls';
 import { requiredField, maxLength } from './../../utils/validators/validators';
+import { compose } from 'redux';
+import { withProfileRedirect } from '../../hoc/WithAuthRedirect';
 
 const 
     maxLength20 = maxLength(20),
@@ -16,14 +21,15 @@ const LoginForm = props => {
             <div>
                 <Field 
                     placeholder={'Логин'}
-                    name={'login'}
+                    name={'email'}
                     component={Input}
                     validate={[ errorText, maxLength20 ]}
                 />
             </div>
             <div>
                 <Field 
-                    placeholder={'Пароль'} 
+                    placeholder={'Пароль'}
+                    type={'password'}
                     component={Input}
                     name={'password'}
                     validate={[ errorText, maxLength20 ]}
@@ -48,8 +54,8 @@ const LoginFormRedux = reduxForm({
 })(LoginForm);
 
 const Login = props => {
-    const onSubmit = data => {
-        console.log(data);
+    const onSubmit = ({email, password, rememberMe}) => {
+        props.login(email, password, rememberMe);
     }
 
     return (
@@ -60,4 +66,7 @@ const Login = props => {
     );
 }
 
-export default Login;
+export default compose(
+    connect(null, {login}),
+    withProfileRedirect
+)(Login);
