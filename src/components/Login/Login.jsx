@@ -9,6 +9,8 @@ import { requiredField, maxLength } from './../../utils/validators/validators';
 import { compose } from 'redux';
 import { withProfileRedirect } from '../../hoc/WithAuthRedirect';
 
+import s from './../common/FormsControls/FormsControls.module.css';
+
 const 
     maxLength20 = maxLength(20),
     errorText = requiredField('need more symbols'),
@@ -42,6 +44,12 @@ const LoginForm = props => {
                     component={'input'}
                 />Запомнить
             </div>
+            {
+                props.error &&
+                <div className={s.formSummaryError}>
+                    {props.error}
+                </div>
+            }
             <div>
                 <button type={'submit'}>Войти</button>
             </div>
@@ -49,9 +57,7 @@ const LoginForm = props => {
     );
 }
 
-const LoginFormRedux = reduxForm({
-    form: 'login',
-})(LoginForm);
+const LoginFormRedux = reduxForm({form: 'login'})(LoginForm);
 
 const Login = props => {
     const onSubmit = ({email, password, rememberMe}) => {

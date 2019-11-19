@@ -1,8 +1,9 @@
 import { authAPI } from "../api/api";
+import { stopSubmit } from 'redux-form';
 
 /**
  * 
- * Редьюсер для страницы человека
+ * Редьюсер для авторизации
  * 
  * 
  */
@@ -50,7 +51,7 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({type: SET_USE
 
 // Проверка на логин
 export const getAuthUserData = () => dispatch => {
-    authAPI
+    return authAPI
         .getAuthUserData()
         .then(res => {
             if (!res.data.resultCode) {
@@ -67,6 +68,9 @@ export const login = (email, password, rememberMe) => dispatch => {
         .then(res => {
             if (!res.data.resultCode) {
                 dispatch(getAuthUserData());
+            } else {
+                const msgError = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error';
+                dispatch(stopSubmit('login', {_error: msgError}));
             }
         });
 }
