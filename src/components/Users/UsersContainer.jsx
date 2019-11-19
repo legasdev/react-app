@@ -14,7 +14,7 @@ import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/WithAuthRedirect';
 import { 
     getPageSizeSelector, 
-    getUsersSelector, 
+    getUsersSuperSelector, 
     getTotalUsersCountSelector,
     getCurrentPageSelector,
     getFetchingSelector,
@@ -78,7 +78,7 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: getUsersSelector(state),
+        users: getUsersSuperSelector(state),
         pageSize: getPageSizeSelector(state),
         totalUsersCount: getTotalUsersCountSelector(state),
         currentPage: getCurrentPageSelector(state),
