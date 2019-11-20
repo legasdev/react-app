@@ -1,5 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+import { initializedApp } from './redux/app-reducer';
 
 import './App.css';
 
@@ -12,10 +16,18 @@ import Settings from './components/Settings/Settings';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/Login';
+import Preloader from './components/common/Preloader/Preloader';
 
-function App(props) {
+class App extends React.Component {
 
-  return (
+  componentDidMount() {
+    this.props.initializedApp();
+  }
+
+  render() {
+    return !this.props.initialized
+      ? <Preloader />
+      : (
       <div className="app-wrapper">
         <HeaderContainer />
         <Aside />
@@ -30,7 +42,7 @@ function App(props) {
           />
           <Route 
             path='/news' 
-            component={ News } 
+            render={ () => <News /> } 
           />
           <Route
             path='/users'
@@ -50,7 +62,16 @@ function App(props) {
           /> 
         </main>
       </div>
-  );
+    );
+  }
+  
 }
 
-export default App;
+const mstp = state => ({
+  initialized: state.app.initialized,
+});
+
+export default compose(
+  withRouter,
+  connect(mstp, {initializedApp}),
+)(App);

@@ -18,3 +18,16 @@ export const withAuthRedirect = Component => {
     return connect(mapStateToProps)(RedirectComponent);
 
 }
+
+export const withProfileRedirect = Component => {
+    
+    class RedirectComponent extends React.Component {
+        render() {
+            if (this.props.isAuth) return <Redirect to={'/profile'} />;
+            return <Component { ...this.props } />
+        }
+    }
+
+    return connect(mapStateToProps)(RedirectComponent);
+
+}

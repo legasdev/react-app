@@ -1,5 +1,20 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+
+import { login } from '../../redux/auth-reducer';
+
+import { FieldComponent } from './../common/FormsControls/FormsControls';
+import { requiredField, maxLength } from './../../utils/validators/validators';
+import { compose } from 'redux';
+import { withProfileRedirect } from '../../hoc/WithAuthRedirect';
+
+import s from './../common/FormsControls/FormsControls.module.css';
+
+const 
+    maxLength20 = maxLength(20),
+    errorText = requiredField('need more symbols'),
+    Input = FieldComponent('input');
 
 const LoginForm = props => {
     const { handleSubmit } = props;
@@ -8,15 +23,18 @@ const LoginForm = props => {
             <div>
                 <Field 
                     placeholder={'Логин'}
-                    name={'login'}
-                    component={'input'}
+                    name={'email'}
+                    component={Input}
+                    validate={[ errorText, maxLength20 ]}
                 />
             </div>
             <div>
                 <Field 
-                    placeholder={'Пароль'} 
+                    placeholder={'Пароль'}
+                    type={'password'}
+                    component={Input}
                     name={'password'}
-                    component={'input'}
+                    validate={[ errorText, maxLength20 ]}
                 /> 
             </div>
             <div>
@@ -26,6 +44,12 @@ const LoginForm = props => {
                     component={'input'}
                 />Запомнить
             </div>
+            {
+                props.error &&
+                <div className={s.formSummaryError}>
+                    {props.error}
+                </div>
+            }
             <div>
                 <button type={'submit'}>Войти</button>
             </div>
@@ -33,13 +57,11 @@ const LoginForm = props => {
     );
 }
 
-const LoginFormRedux = reduxForm({
-    form: 'login',
-})(LoginForm);
+const LoginFormRedux = reduxForm({form: 'login'})(LoginForm);
 
 const Login = props => {
-    const onSubmit = data => {
-        console.log(data);
+    const onSubmit = ({email, password, rememberMe}) => {
+        props.login(email, password, rememberMe);
     }
 
     return (
@@ -50,4 +72,7 @@ const Login = props => {
     );
 }
 
-export default Login;
+export default compose(
+    connect(null, {login}),
+    withProfileRedirect
+)(Login);

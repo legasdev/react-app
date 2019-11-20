@@ -38,6 +38,18 @@ export const authAPI = {
         return await instance.get(`auth/me`);
     },
 
+    // Попытка логина
+    async login(email, password, rememberMe = false) {
+        return await instance.post(`auth/login`, {
+            email, password, rememberMe,
+        });
+    },
+
+    // Попытка разлогирования
+    async logout() {
+        return await instance.delete(`auth/login`);
+    }
+
 }
 
 // Информация о пользователе

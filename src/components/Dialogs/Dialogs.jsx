@@ -6,10 +6,14 @@ import s from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 
-import { requiredField, maxLength } from '../../utils/validators';
-import { Textarea } from '../common/FormsControls/FormsControls';
+import { requiredField, maxLength } from '../../utils/validators/validators';
+import { FieldComponent } from '../common/FormsControls/FormsControls';
 
-const maxLength10 = maxLength(10);
+const Textarea = FieldComponent('textarea');
+
+const 
+    maxLengthValidate = maxLength(20),
+    errorText = requiredField('need more symbols');
 
 // Форма диалога
 const DialogForm = props => {
@@ -22,7 +26,7 @@ const DialogForm = props => {
                 className={s.textarea}
                 component={Textarea}
                 name={'newMsgBody'}
-                validate={ [requiredField, maxLength10] }
+                validate={ [errorText, maxLengthValidate] }
             />
             
             <button className={s.button}>
