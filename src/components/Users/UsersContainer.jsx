@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { 
-    follow, 
-    unFollow, 
+    follow,
     setCurrentPage,
     getUsers
 } from '../../redux/users-reducer';
@@ -31,19 +30,16 @@ class UsersContainer extends React.Component {
 
     // Была произведена ставка JSX в DOM
     componentDidMount() {
+        const {currentPage, pageSize} = this.props;
         // Получить пользователей
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
-    }
-
-    // Обновление JSX в DOM
-    componentDidUpdate() {
-
+        this.props.getUsers(currentPage, pageSize);
     }
 
     // Перелистывание юзеров
     onPageChanged = item => {
+        const {pageSize} = this.props;
         this.props.setCurrentPage(item);
-        this.props.getUsers(item, this.props.pageSize);
+        this.props.getUsers(item, pageSize);
     }
 
     render() {
@@ -88,6 +84,6 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { follow, unFollow, setCurrentPage, getUsers }),
+    connect(mapStateToProps, { follow, setCurrentPage, getUsers }),
     withAuthRedirect,
 )(UsersContainer);

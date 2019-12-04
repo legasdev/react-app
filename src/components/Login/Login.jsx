@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { login } from '../../redux/auth-reducer';
 
-import { FieldComponent } from './../common/FormsControls/FormsControls';
+import { FieldComponent, createField } from './../common/FormsControls/FormsControls';
 import { requiredField, maxLength } from './../../utils/validators/validators';
 import { compose } from 'redux';
 import { withProfileRedirect } from '../../hoc/WithAuthRedirect';
@@ -16,38 +16,16 @@ const
     errorText = requiredField('need more symbols'),
     Input = FieldComponent('input');
 
-const LoginForm = props => {
-    const { handleSubmit } = props;
+const LoginForm = ({handleSubmit, error}) => {
     return (
         <form onSubmit={ handleSubmit }>
-            <div>
-                <Field 
-                    placeholder={'Логин'}
-                    name={'email'}
-                    component={Input}
-                    validate={[ errorText, maxLength20 ]}
-                />
-            </div>
-            <div>
-                <Field 
-                    placeholder={'Пароль'}
-                    type={'password'}
-                    component={Input}
-                    name={'password'}
-                    validate={[ errorText, maxLength20 ]}
-                /> 
-            </div>
-            <div>
-                <Field 
-                    type={'checkbox'}
-                    name={'rememberMe'}
-                    component={'input'}
-                />Запомнить
-            </div>
+            {createField('Логин', 'email', 'text', [ errorText, maxLength20 ], Input)}
+            {createField('Пароль', 'password', 'password', [ errorText, maxLength20 ], Input)}
+            {createField(null, 'rememberMe', 'checkbox', [], Input, 'Запомнить')}
             {
-                props.error &&
+                error &&
                 <div className={s.formSummaryError}>
-                    {props.error}
+                    {error}
                 </div>
             }
             <div>
