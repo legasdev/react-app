@@ -18,14 +18,11 @@ export const usersAPI = {
         return res.data;
     },
 
-    // Подписка на пользователя
-    async follow(id = 0) {
-        return await instance.post(`follow/${id}`);
-    },
-
-    // Отписка от пользователя
-    async unFollow(id = 0) {
-        return await instance.delete(`follow/${id}`);
+    // Подписка/отписка пользователя
+    async follow(id = 0, followedStatus) {
+        return followedStatus 
+                ? await instance.post(`follow/${id}`)
+                : await instance.delete(`follow/${id}`);
     },
 
 }

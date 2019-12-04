@@ -10,7 +10,8 @@ import { profileAPI } from "../api/api";
 const
     ADD_POST = 'ADD_POST',
     SET_USER_PROFILE = 'SET_USER_PROFILE',
-    SET_USER_STATUS = 'SET_USER_STATUS';
+    SET_USER_STATUS = 'SET_USER_STATUS',
+    DELETE_POST = 'DELETE_POST';
 
 // Инициализация редьюсера
 
@@ -38,6 +39,9 @@ const profileReducer = (state = initialState, action) => {
 
         case SET_USER_STATUS:
             return { ...state, status: action.status }
+
+        case DELETE_POST:
+            return { ...state, postsData: state.postsData.filter(item =>  item.key !== action.id) }
         
         default: return state;
     }
@@ -62,6 +66,7 @@ function addPost(state, newPostText) {
 export const addPostActionCreator = newPostText => ({type: ADD_POST, newPostText});
 export const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
 export const setUserStatus = status => ({type: SET_USER_STATUS, status});
+export const deletePost = id => ({type: DELETE_POST, id});
 
 
 // Thunks
@@ -71,37 +76,29 @@ export const setUserStatus = status => ({type: SET_USER_STATUS, status});
  * 
  * @param {number} id ID запрашиваемого пользователя 
  */
-export const getUserProfile = id => dispatch => {
-    profileAPI
-        .getProfile(id)
-        .then( res => {
-            dispatch(setUserProfile(res.data));
-        });
-}
+export const getUserProfile = id => async dispatch => {
+    const res = await profileAPI.getProfile(id);
+    dispatch(setUserProfile(res.data));
+};
 
 /**
  * @description Получить статус пользователя
  * 
  * @param {number} id ID запрашиваемого пользователя 
  */
-export const getUserStatus = id => dispatch => {
-    profileAPI
-        .getUserStatus(id)
-        .then( res => {
-            dispatch(setUserStatus(res.data));
-        });
-}
+export const getUserStatus = id => async dispatch => {
+    const res = await profileAPI.getUserStatus(id);
+    dispatch(setUserStatus(res.data));
+};
 
 /**
  * @description Изменить статус своего пользователя
  * 
  * @param {string} status Новый статус пользователя
  */
-export const updateUserStatus = status => dispatch => {
-    profileAPI
-        .updateUserStatus(status)
-        .then( res => {
-            if (res.data.resultCode === 0)
-                dispatch(setUserStatus(status));
-        });
-}
+export const updateUserStatus = status => async dispatch => {
+    const res = await profileAPI.updateUserStatus(status);
+    
+    if (!res.data.resultCode)
+        dispatch(setUserStatus(status));
+};
