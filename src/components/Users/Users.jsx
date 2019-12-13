@@ -11,7 +11,7 @@ const Users = ({currentPage, pageSize, onPageChanged, totalUsersCount, ...props}
                 currentPage={currentPage} 
                 onPageChanged={onPageChanged}
                 pageSize={pageSize}
-                totalUsersCount={totalUsersCount}
+                totalItemsCount={totalUsersCount}
             />
             <div>
                 {props.users.map( 

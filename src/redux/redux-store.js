@@ -3,7 +3,7 @@
  * Основной файл управления Store
  * 
  */
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunkMiddleware from 'redux-thunk';
 
 import profileReducer from './profile-reducer';
@@ -24,9 +24,9 @@ const reducers = combineReducers({
     app: appReducer,
 });
 
-// Создание Store
-const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-window.store = store;
+// Создание Store
+const store = createStore(reducers, composeEnchancers(applyMiddleware(thunkMiddleware)));
 
 export default store;
