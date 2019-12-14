@@ -10,7 +10,6 @@ import { updateObjectInArray } from "../utils/object-helpers";
 
 const 
     FOLLOW_USER = 'FOLLOW-USER',
-    UNFOLLOW_USER = 'UNFOLLOW-USER',
     SET_USERS = 'SET-USERS',
     SET_CURRENT_PAGE = 'SET-CURRENT-PAGE',
     SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT',

@@ -5,9 +5,11 @@ import s from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-const ProfileInfo = ({profile, updateUserStatus, status, ...props}) => {
+const ProfileInfo = ({profile, updateUserStatus, status}) => {
 
     if (!profile) return <Preloader />
+
+    const onMainPhotoSelected = e => if (e.target.files.length) savePhoto(e.target.files[0]);
 
     return (
         <section className={s.preview_info}>
